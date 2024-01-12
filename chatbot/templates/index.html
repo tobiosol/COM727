@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southampton Accomodation AI</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="flex flex-col  items-center justify-center min-w-full h-screen bg-gray-300 p-2">
+        <div class="chat-box bg-white rounded-md border border-[#e5e7eb] max-w-sm min-h-full flex flex-col">
+            <div class="flex-1">
+                <div class="flex flex-col items-center justify-center space-y-1.5 bg-slate-500">
+                    <h2 class="font-semibold text-xl tracking-tight text-white py-3">SouthAcc Bot</h2>
+                </div>
+                <div class="messages flex-1">
+                    <div class="message bot-message">
+                        <p>Hello, I am a chatbot. How can I help you?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area bg-gray-200 max-w-screen-lg m-auto w-full flex space-x-4 justify-center items-center">
+                <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off"
+                    class="border rounded-md p-2 flex-1 border-gray-300">
+                <button id="send-button" class="bg-gray-800 text-white px-4 py-2 rounded-md">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- script to handle the chat logic -->
+    <script>
+        // get the elements
+        var userInput = $("#user-input");
+        var sendButton = $("#send-button");
+        var messages = $(".messages");
+
+        // define a function to append a user message
+        function appendUserMessage(text) {
+            // create a div element
+            var userMessage = $("<div></div>");
+            // add the user-message class
+            userMessage.addClass("message");
+            userMessage.addClass("user-message");
+            // create a p element
+            var userText = $("<p></p>");
+            // set the text to the input text
+            userText.text(text);
+            // append the p element to the div element
+            userMessage.append(userText);
+            // append the div element to the messages element
+            messages.append(userMessage);
+            // scroll to the bottom of the messages element
+            messages.scrollTop(messages.prop("scrollHeight"));
+        }
+
+        // define a function to append a bot message
+        function appendBotMessage(text) {
+            // create a div element
+            var botMessage = $("<div></div>");
+            // add the bot-message class
+            botMessage.addClass("message");
+            botMessage.addClass("bot-message");
+            // create a p element
+            var botText = $("<p></p>");
+            // set the text to the response text
+            botText.text(text);
+            // append the p element to the div element
+            botMessage.append(botText);
+            // append the div element to the messages element
+            messages.append(botMessage);
+            // scroll to the bottom of the messages element
+            messages.scrollTop(messages.prop("scrollHeight"));
+        }
+
+        // define a function to get the bot response
+        function getBotResponse(text) {
+            console.log('getBotResponse ' + text)
+            // make an ajax request to the chat route
+            $.ajax({
+                url: "/chat",
+                type: "GET",
+                data: { user_input: text },
+                success: function (data) {
+                    console.log(data);
+                    // get the bot response from the data
+                    var botResponse = data.bot_response;
+                    // append the bot message
+                    appendBotMessage(botResponse);
+                },
+                error: function (error) {
+                    // append an error message
+                    appendBotMessage("Sorry, something went wrong.");
+                }
+            });
+        }
+
+        // add a click event listener to the send button
+        sendButton.on("click", function () {
+            // get the user input value
+            var userText = userInput.val();
+            // check if the user input is not empty
+            if (userText) {
+                // append the user message
+                appendUserMessage(userText);
+                // clear the user input
+                userInput.val("");
+                // get the bot response
+                getBotResponse(userText);
+            }
+        });
+
+        userInput.on("keypress", function (event) {
+            // check if the enter key is pressed
+            if (event.which == 13) {
+                // trigger the click event on the send button
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+
+</html>
