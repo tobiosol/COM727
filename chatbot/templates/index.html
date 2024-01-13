@@ -14,8 +14,8 @@
     <div class="flex flex-col  items-center justify-center min-w-full h-screen bg-gray-300 p-2">
         <div class="chat-box bg-white rounded-md border border-[#e5e7eb] max-w-sm min-h-full flex flex-col">
             <div class="flex-1">
-                <div class="flex flex-col items-center justify-center space-y-1.5 bg-slate-500">
-                    <h2 class="font-semibold text-xl tracking-tight text-white py-3">SouthAcc Bot</h2>
+                <div class="flex flex-col items-center justify-center space-y-1.5 bg-slate-800">
+                    <h2 class="text-xl tracking-tight text-white py-3 uppercase">SouthAcc Bot</h2>
                 </div>
                 <div class="messages flex-1">
                     <div class="message bot-message">
@@ -24,10 +24,11 @@
                 </div>
             </div>
 
-            <div class="input-area bg-gray-200 max-w-screen-lg m-auto w-full flex space-x-4 justify-center items-center">
+            <div
+                class="input-area bg-gray-200 max-w-screen-lg m-auto w-full flex space-x-2 justify-center items-center">
                 <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off"
                     class="border rounded-md p-2 flex-1 border-gray-300">
-                <button id="send-button" class="bg-gray-800 text-white px-4 py-2 rounded-md">Send</button>
+                <button id="send-button" class="bg-gray-800 text-white px-4 py-2 rounded">Send</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate File</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mx-auto p-4">
+        <br />
+        <br />
+
+        <form action="/generatefile" method="POST" class="mt-4">
+            <button type="submit" id="create-button"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded">Generate Json</button>
+        </form>
+
+        <div id="download-link" class="mt-4 hidden">
+            <p>Your file is ready. Click <a href="#" class="underline">here</a> to download.</p>
+            <br/>
+            <br/>
+            <form action="/train_model" method="POST" class="mt-4" id="">
+                <button type="submit" id="create-button"
+                    class="bg-red-800 hover:bg-red-900 text-white font-medium px-4 py-2 rounded">Training Model with Data</button>
+            </form>
+            <br/>
+            <br/>
+            <nav class="my-2">
+                <a href="{{ url_for('admin') }}" class="underline text-blue-600 text-md">Return</a>
+            </nav>
+        </div>
+
+        
+
+        
+
+    </div>
+
+    <script>
+        var createButton = $("#create-button");
+        var downloadLink = $("#download-link");
+        var downloadAnchor = downloadLink.find("a");
+
+        createButton.on("click", function (event) {
+            // prevent the default form submission
+            event.preventDefault();
+            // get the form data
+            var formData = $("form").serialize();
+            // make an ajax request to the home route
+            $.ajax({
+                url: "/generatefile",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    // get the file name from the data
+                    var fileName = data.file_name;
+                    // set the download link href to the download route with the file name
+                    downloadAnchor.attr("href", "/download/" + fileName);
+                    // show the download link
+                    downloadLink.removeClass("hidden");
+                },
+                error: function (error) {
+                    // alert an error message
+                    alert("Sorry, something went wrong.");
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,8 +1,25 @@
+@font-face {
+    font-family: 'roboto';
+    src: url("../font/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../font/OpenSans-Regular.ttf");
+}
+
+* {
+    font-family: 'roboto', sans-serif;
+}
+
+body {
+    font-family: 'roboto', sans-serif;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* style.css */
 .chat-box {
     box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
@@ -31,7 +48,8 @@
     position: relative;
     margin: 10px 5px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
+    font-size: 14px;
 }
 
 .message:after {
@@ -41,7 +59,7 @@
     border: 0.75em solid transparent;
     border-top-color: rgb(8, 8, 155);
     display: block;
-  }
+}
 
 .user-message {
     background-color: lightgreen;
@@ -56,78 +74,9 @@
 .bot-message:after {
     left: -0.45em;
     border-top-color: lightblue !important;
-  }
-  
+}
+
 .user-message:after {
     right: -0.45em;
     border-top-color: lightgreen !important;
-  }
-
-
-/* 
-
-  
-  .message:after {
-    content: "";
-    top: 0;
-    position: absolute;
-    border: 0.75em solid transparent;
-    border-top-color: blue;
-    display: block;
-  }
-  
-  .message.assistant:after {
-    left: -0.45em;
-    border-top-color: inherit;
-  }
-  
-  .message.user:after {
-    right: -0.45em;
-    border-top-color: inherit;
-  }
-  
-  .type-indicator span {
-    display: inline-block;
-    padding: 0 0.075em;
-    animation: type-indicator 1s ease-in-out infinite;
-    transform: translateY(0);
-  }
-  
-  .type-indicator span:nth-child(2) {
-    animation-delay: 150ms;
-  }
-  
-  .type-indicator span:nth-child(3) {
-    animation-delay: 300ms;
-  }
-  
-  @keyframes type-indicator {
-    0% {
-      transform: none;
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-    50% {
-      transform: translateY(-25%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-  }
-  
-  .blink {
-    animation: blink 1.25s infinite;
-  }
-  
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    69% {
-      opacity: 1;
-    }
-    70% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-   */
+}
